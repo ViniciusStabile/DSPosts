@@ -17,3 +17,20 @@ Este projeto foi desenvolvido em Java usando Spring Boot e adota uma estrutura d
 3. **Comment (Comentário)**
    - Campos: `id`, `text`, `date`
    - Relacionamentos: cada comentário possui um autor (`User`) e está associado a um post.
+  
+  ### Tecnologias Utilizadas:
+- Java : Linguagem de programação principal.
+- Spring Boot: Framework para criação de aplicações Java, facilitando a configuração e a implementação de APIs.
+- Spring Data MongoDB: Módulo Spring Data para integração com MongoDB.
+- MongoDB: Banco de dados NoSQL utilizado para armazenamento das informações de usuários, posts e comentários.
+
+  ### Funcionalidades:
+1. Gerenciamento de Usuários:
+   - Cadastro de novos usuários.
+   - Listagem de usuários com detalhes de seus posts e comentários.
+2. Gerenciamento de Posts:
+   - Criação de posts com título, data e conteúdo.
+   - Relacionamento dos posts com um autor (usuário) e associação de comentários.
+3. Comentários em Posts:
+   - Permite adicionar comentários a posts existentes.
+   - Cada comentário é associado a um autor (usuário) e vinculado ao post.
