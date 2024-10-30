@@ -46,12 +46,17 @@ public class UserService {
 
 	@Transactional
 	public UserDTO update(String id, UserDTO dto) {
-		
+
 		User entity = getEntityById(id);
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new UserDTO(entity);
 
+	}
+
+	public void delete(String id) {
+		getEntityById(id);
+		repository.deleteById(id);
 	}
 
 	private void copyDtoToEntity(UserDTO dto, User entity) {
