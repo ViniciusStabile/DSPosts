@@ -29,6 +29,11 @@ public class PostService {
 		Post entity = getEntityById(id);
 		return new PostDTO(entity);
 	}
+	
+	public List<PostDTO> findByTitle(String text) {
+		List<Post> list = repository.findByTitleContainingIgnoreCase(text);
+		return list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
+	}
 
 	@Transactional
 	public PostDTO insert(PostDTO dto) {
