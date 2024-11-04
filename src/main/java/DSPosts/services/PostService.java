@@ -1,5 +1,7 @@
 package DSPosts.services;
 
+import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,9 +31,16 @@ public class PostService {
 		Post entity = getEntityById(id);
 		return new PostDTO(entity);
 	}
-	
+
 	public List<PostDTO> findByTitle(String text) {
 		List<Post> list = repository.findByTitleContainingIgnoreCase(text);
+		return list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
+	}
+
+	public List<PostDTO> fullSearch(String text, String start, String end) {
+		Instant startMoment = convertMoment(start, Instant.ofEpochMilli(0L));
+		Instant endMoment = convertMoment(end, Instant.now());
+		List<Post> list = repository.fullSearch(text, startMoment, endMoment);
 		return list.stream().map(x -> new PostDTO(x)).collect(Collectors.toList());
 	}
 
@@ -64,10 +73,8 @@ public class PostService {
 		repository.deleteById(id);
 	}
 
-	
-	
 	private void copyDtoToEntity(PostDTO dto, Post entity) {
-		
+
 		entity.setMoment(dto.getMoment());
 		entity.setTitle(dto.getTitle());
 		entity.setBody(dto.getBody());
@@ -75,4 +82,11 @@ public class PostService {
 
 	}
 
+	private Instant convertMoment(String orignalText, Instant alternative) {
+		try {
+			return Instant.parse(orignalText);
+		} catch (DateTimeParseException e) {
+			return alternative;
+		}
+	}
 }
